@@ -8,11 +8,11 @@ import {
   Timer,
   CreditCard,
   CheckCircle,
-  XCircle,
+  Download,
 } from "lucide-react";
 
 const Payment = () => {
-  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(600);
   const [progress, setProgress] = useState(100);
   const { toast } = useToast();
 
@@ -47,7 +47,6 @@ const Payment = () => {
       description: "Verifying your payment. Please wait...",
       duration: 3000,
     });
-    // Here you would typically make an API call to verify the payment
   };
 
   const handleCreditCardPayment = () => {
@@ -56,7 +55,15 @@ const Payment = () => {
       description: "Redirecting to credit card payment...",
       duration: 3000,
     });
-    // Redirect to credit card payment page
+  };
+
+  const handleSaveQRCode = () => {
+    toast({
+      title: "Downloading QR Code",
+      description: "Your QR code is being downloaded...",
+      duration: 3000,
+    });
+    // Here you would implement actual QR code download logic
   };
 
   return (
@@ -64,11 +71,14 @@ const Payment = () => {
       <Card className="w-full max-w-md p-6 space-y-6 bg-white shadow-lg rounded-xl">
         <div className="text-center space-y-2">
           <h1 className="text-2xl font-bold text-gray-900">QR Payment</h1>
-          <p className="text-gray-500">Scan to pay for your booking</p>
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-gray-700">Tennis Court A</h2>
+            <p className="text-3xl font-bold text-primary">$25.00</p>
+          </div>
         </div>
 
         <div className="relative">
-          <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+          <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center border-2 border-gray-200">
             <QrCode className="w-48 h-48 text-gray-800" />
           </div>
           
@@ -89,6 +99,15 @@ const Payment = () => {
         </div>
 
         <div className="space-y-3">
+          <Button
+            onClick={handleSaveQRCode}
+            variant="outline"
+            className="w-full bg-blue-50 hover:bg-blue-100 text-blue-600 border-blue-200 flex items-center justify-center gap-2 h-12"
+          >
+            <Download className="w-5 h-5" />
+            Save QR Code
+          </Button>
+
           <Button
             onClick={handlePaymentConfirmation}
             className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center gap-2 h-12"
