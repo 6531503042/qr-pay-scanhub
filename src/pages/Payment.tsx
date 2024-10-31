@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 
 const Payment = () => {
+  const navigate = useNavigate();
   const [timeLeft, setTimeLeft] = useState(600);
   const [progress, setProgress] = useState(100);
   const { toast } = useToast();
@@ -50,11 +52,7 @@ const Payment = () => {
   };
 
   const handleCreditCardPayment = () => {
-    toast({
-      title: "Switching Payment Method",
-      description: "Redirecting to credit card payment...",
-      duration: 3000,
-    });
+    navigate("/credit-card-payment");
   };
 
   const handleSaveQRCode = () => {
